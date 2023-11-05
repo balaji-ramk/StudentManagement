@@ -13,8 +13,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
-
-
+import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.scene.layout.GridPane;
 
 public class SchoolManagementSystem extends Application {
 
@@ -29,6 +30,79 @@ public class SchoolManagementSystem extends Application {
         BorderPane layout = new BorderPane();
         layout.setPadding(new Insets(10));
 
+        Label helloLabel = new Label("Hello!");
+        helloLabel.setStyle("-fx-font-size: 36; -fx-text-fill: #333;");
+        BorderPane.setAlignment(helloLabel, Pos.CENTER);
+
+        VBox buttonsVBox = new VBox(20);
+        buttonsVBox.setAlignment(Pos.CENTER);
+        buttonsVBox.setPadding(new Insets(10));
+
+        Button loginButton = new Button("Login");
+        loginButton.setStyle(
+                "-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
+        loginButton.setOnAction(e -> {
+            openLoginScreen(primaryStage);
+        });
+
+        buttonsVBox.getChildren().addAll(loginButton);
+        layout.setTop(helloLabel);
+        layout.setCenter(buttonsVBox);
+
+        Scene scene = new Scene(layout, 400, 300);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void openLoginScreen(Stage primaryStage) {
+        Stage loginStage = new Stage();
+        loginStage.initModality(Modality.APPLICATION_MODAL);
+        loginStage.setTitle("Login");
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        Label regLabel = new Label("Enter Reg. No.:");
+        TextField regNumberField = new TextField();
+
+        Button loginButton = new Button("Login");
+        loginButton.setOnAction(e -> {
+            String regNumber = regNumberField.getText();
+            if (isValidRegistrationNumber(regNumber)) {
+                loginStage.close();
+                openMainMenu(primaryStage);
+            } else {
+                // Handle invalid registration number
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid Registration Number");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter a valid registration number.");
+                alert.showAndWait();
+            }
+        });
+
+        grid.add(regLabel, 0, 0);
+        grid.add(regNumberField, 1, 0);
+        grid.add(loginButton, 1, 1);
+
+        Scene scene = new Scene(grid, 300, 150);
+        loginStage.setScene(scene);
+        loginStage.show();
+    }
+
+    private boolean isValidRegistrationNumber(String regNumber) {
+        // Validation Logic Missing as no backend.
+        return true;
+    }
+
+    private void openMainMenu(Stage primaryStage) {
+        primaryStage.setTitle("School Management System");
+
+        BorderPane layout = new BorderPane();
+        layout.setPadding(new Insets(10));
+
         Label helloLabel = new Label("Hello");
         helloLabel.setStyle("-fx-font-size: 36; -fx-text-fill: #333;");
         BorderPane.setAlignment(helloLabel, Pos.CENTER);
@@ -38,19 +112,22 @@ public class SchoolManagementSystem extends Application {
         buttonsVBox.setPadding(new Insets(10));
 
         Button attendanceButton = new Button("Attendance");
-        attendanceButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
+        attendanceButton.setStyle(
+                "-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
         attendanceButton.setOnAction(e -> {
             openAttendancePage(primaryStage);
         });
 
         Button marksButton = new Button("Marks");
-        marksButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
+        marksButton.setStyle(
+                "-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
         marksButton.setOnAction(e -> {
             openMarksPage(primaryStage);
         });
 
         Button personalDetailsButton = new Button("Personal Details");
-        personalDetailsButton.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
+        personalDetailsButton.setStyle(
+                "-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
         personalDetailsButton.setOnAction(e -> {
             openPersonalDetailsPage(primaryStage);
         });
@@ -63,6 +140,7 @@ public class SchoolManagementSystem extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     private void openMarksPage(Stage primaryStage) {
         Stage marksStage = new Stage();
         BorderPane layout = new BorderPane();
@@ -72,7 +150,7 @@ public class SchoolManagementSystem extends Application {
         title.setStyle("-fx-font-size: 24; -fx-text-fill: #333;");
         BorderPane.setAlignment(title, Pos.CENTER);
 
-        Button goBackButton = new Button("GO back");
+        Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
         goBackButton.setOnAction(e -> {
             marksStage.close();
@@ -87,7 +165,8 @@ public class SchoolManagementSystem extends Application {
         marksStage.setScene(scene);
         marksStage.show();
     }
-     private void openAttendancePage(Stage primaryStage) {
+
+    private void openAttendancePage(Stage primaryStage) {
         Stage attendanceStage = new Stage();
         BorderPane layout = new BorderPane();
         layout.setPadding(new Insets(20));
@@ -96,7 +175,7 @@ public class SchoolManagementSystem extends Application {
         title.setStyle("-fx-font-size: 24; -fx-text-fill: #333;");
         BorderPane.setAlignment(title, Pos.CENTER);
 
-        Button goBackButton = new Button("GO back");
+        Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
         goBackButton.setOnAction(e -> {
             attendanceStage.close();
@@ -112,6 +191,7 @@ public class SchoolManagementSystem extends Application {
         attendanceStage.setScene(scene);
         attendanceStage.show();
     }
+
     private TableView<MarksData> createMarksTable() {
         TableView<MarksData> table = new TableView<>();
 
@@ -133,16 +213,17 @@ public class SchoolManagementSystem extends Application {
         TableColumn<MarksData, Integer> totalMarksColumn = new TableColumn<>("Total Marks");
         totalMarksColumn.setCellValueFactory(new PropertyValueFactory<>("totalMarks"));
 
-        table.getColumns().addAll(serialNoColumn, subjectColumn, midSemesterMarksColumn, internalMarksColumn, endSemesterMarksColumn, totalMarksColumn);
+        table.getColumns().addAll(serialNoColumn, subjectColumn, midSemesterMarksColumn, internalMarksColumn,
+                endSemesterMarksColumn, totalMarksColumn);
 
         ObservableList<MarksData> data = FXCollections.observableArrayList(
-            new MarksData(1, "OOPS", 25, 15, 45),
-            new MarksData(2, "DS", 28, 18, 49),
-            new MarksData(3, "Maths", 22, 12, 39),
-            new MarksData(4, "FLAT", 26, 16, 48),
-            new MarksData(5, "DSCO", 30, 20, 50),
-            new MarksData(6, "NewSubject", 25, 17, 45)
-            // Add more data as needed
+                new MarksData(1, "OOPS", 25, 15, 45),
+                new MarksData(2, "DS", 28, 18, 49),
+                new MarksData(3, "Maths", 22, 12, 39),
+                new MarksData(4, "FLAT", 26, 16, 48),
+                new MarksData(5, "DSCO", 30, 20, 50),
+                new MarksData(6, "NewSubject", 25, 17, 45)
+        // Add more data as needed
         );
         table.setPrefSize(10, 10);
 
@@ -150,31 +231,29 @@ public class SchoolManagementSystem extends Application {
         return table;
     }
 
-   private void openPersonalDetailsPage(Stage primaryStage) {
-    BorderPane personalDetailsLayout = new BorderPane();
+    private void openPersonalDetailsPage(Stage primaryStage) {
+        BorderPane personalDetailsLayout = new BorderPane();
 
-    VBox personalDetailsVBox = new VBox(10);
-    personalDetailsVBox.setPadding(new Insets(20));
+        VBox personalDetailsVBox = new VBox(10);
+        personalDetailsVBox.setPadding(new Insets(20));
 
-    // Predefined personal details
-    Label nameLabel = new Label("Name: John Doe");
-    Label regNumberLabel = new Label("Registration Number: XYZ123");
-    Label semesterLabel = new Label("Semester: 3");
-    Label sectionLabel = new Label("Section: A");
+        // Predefined personal details
+        Label nameLabel = new Label("Name: John Doe");
+        Label regNumberLabel = new Label("Registration Number: XYZ123");
+        Label semesterLabel = new Label("Semester: 3");
+        Label sectionLabel = new Label("Section: A");
 
-    personalDetailsVBox.getChildren().addAll(nameLabel, regNumberLabel, semesterLabel, sectionLabel);
+        personalDetailsVBox.getChildren().addAll(nameLabel, regNumberLabel, semesterLabel, sectionLabel);
 
-    Button goBackButton = new Button("Go Back");
-    goBackButton.setOnAction(e -> start(primaryStage));
+        Button goBackButton = new Button("Go Back");
+        goBackButton.setOnAction(e -> start(primaryStage));
 
-    personalDetailsLayout.setCenter(personalDetailsVBox);
-    personalDetailsLayout.setBottom(goBackButton);
+        personalDetailsLayout.setCenter(personalDetailsVBox);
+        personalDetailsLayout.setBottom(goBackButton);
 
-    Scene personalDetailsScene = new Scene(personalDetailsLayout, 400, 300);
-    primaryStage.setScene(personalDetailsScene);
-}
-
-
+        Scene personalDetailsScene = new Scene(personalDetailsLayout, 400, 300);
+        primaryStage.setScene(personalDetailsScene);
+    }
 
     private TableView<AttendanceData> createAttendanceTable() {
         TableColumn<AttendanceData, Integer> serialNumberColumn = new TableColumn<>("Serial Number");
@@ -194,15 +273,13 @@ public class SchoolManagementSystem extends Application {
                 new AttendanceData(2, "OOPS", 92.0),
                 new AttendanceData(3, "DS", 78.3),
                 new AttendanceData(4, "DSCO", 88.7),
-                new AttendanceData(5, "FLAT", 75.9)
-        );
+                new AttendanceData(5, "FLAT", 75.9));
 
         table.setItems(data);
         return table;
     }
 
-
-public static class AttendanceData {
+    public static class AttendanceData {
         private final Integer serialNumber;
         private final String subject;
         private final Double percentage;
@@ -225,45 +302,46 @@ public static class AttendanceData {
             return percentage;
         }
     }
-public static class MarksData {
-    private int serialNo;
-    private String subject;
-    private int midSemesterMarks;
-    private int internalMarks;
-    private int endSemesterMarks;
 
-    public MarksData(int serialNo, String subject, int midSemesterMarks, int internalMarks, int endSemesterMarks) {
-        this.serialNo = serialNo;
-        this.subject = subject;
-        this.midSemesterMarks = Math.min(midSemesterMarks, 30);
-        this.internalMarks = Math.min(internalMarks, 20);
-        this.endSemesterMarks = Math.min(endSemesterMarks, 50);
-    }
+    public static class MarksData {
+        private int serialNo;
+        private String subject;
+        private int midSemesterMarks;
+        private int internalMarks;
+        private int endSemesterMarks;
 
-    public int getSerialNo() {
-        return serialNo;
-    }
+        public MarksData(int serialNo, String subject, int midSemesterMarks, int internalMarks, int endSemesterMarks) {
+            this.serialNo = serialNo;
+            this.subject = subject;
+            this.midSemesterMarks = Math.min(midSemesterMarks, 30);
+            this.internalMarks = Math.min(internalMarks, 20);
+            this.endSemesterMarks = Math.min(endSemesterMarks, 50);
+        }
 
-    public String getSubject() {
-        return subject;
-    }
+        public int getSerialNo() {
+            return serialNo;
+        }
 
-    public int getMidSemesterMarks() {
-        return midSemesterMarks;
-    }
+        public String getSubject() {
+            return subject;
+        }
 
-    public int getInternalMarks() {
-        return internalMarks;
-    }
+        public int getMidSemesterMarks() {
+            return midSemesterMarks;
+        }
 
-    public int getEndSemesterMarks() {
-        return endSemesterMarks;
-    }
+        public int getInternalMarks() {
+            return internalMarks;
+        }
 
-    public int getTotalMarks() {
-        return midSemesterMarks + internalMarks + endSemesterMarks;
+        public int getEndSemesterMarks() {
+            return endSemesterMarks;
+        }
+
+        public int getTotalMarks() {
+            return midSemesterMarks + internalMarks + endSemesterMarks;
+        }
     }
-}
 }
 
 class AttendancePage {
@@ -280,7 +358,7 @@ class AttendancePage {
         Label title = new Label("ATTENDANCE");
         title.setStyle("-fx-font-size: 20; -fx-text-fill: #333;");
 
-        Button goBackButton = new Button("GO back");
+        Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
         goBackButton.setOnAction(e -> {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
@@ -299,6 +377,7 @@ class AttendancePage {
         stage.show();
     }
 }
+
 class MarksPage {
     private Stage primaryStage;
 
@@ -313,7 +392,7 @@ class MarksPage {
         Label title = new Label("MARKS");
         title.setStyle("-fx-font-size: 20; -fx-text-fill: #333;");
 
-        Button goBackButton = new Button("GO back");
+        Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
         goBackButton.setOnAction(e -> {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
@@ -347,7 +426,7 @@ class PersonalDetailsPage {
         Label title = new Label("PERSONAL DETAILS");
         title.setStyle("-fx-font-size: 20; -fx-text-fill: #333;");
 
-        Button goBackButton = new Button("GO back");
+        Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
         goBackButton.setOnAction(e -> {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
