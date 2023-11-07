@@ -17,14 +17,6 @@ import javafx.scene.image.Image;
 import static p1.OpenPages.*;
 
 public class SchoolManagementSystem extends Application {
-    /*private static final String CSV_FILE_PATH = "student_data.csv";
-    public static String regNum;
-    static String parts[];
-    public static Image backgroundImage = new Image("file:bg11.png");
-
-    BackgroundSize backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true,true);
-    BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-    Background bg = new Background(background);*/
 
     @Override
     public void start(Stage primaryStage) {
