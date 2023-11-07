@@ -301,7 +301,7 @@ public class SchoolManagementSystem extends Application {
         TableView<MarksData> table = new TableView<>();
 
         TableColumn<MarksData, Integer> serialNoColumn = new TableColumn<>("Serial No");
-        serialNoColumn.setCellValueFactory(new PropertyValueFactory<>("serialNo"));
+        serialNoColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
 
         TableColumn<MarksData, String> subjectColumn = new TableColumn<>("Subjects");
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
@@ -394,9 +394,9 @@ public class SchoolManagementSystem extends Application {
     }
 
     public static class AttendanceData {
-        private final Integer serialNumber;
-        private final String subject;
-        private final Double percentage;
+        protected final Integer serialNumber;
+        protected final String subject;
+        protected final Double percentage;
 
         public AttendanceData(Integer serialNumber, String subject, Double percentage) {
             this.serialNumber = serialNumber;
@@ -417,27 +417,17 @@ public class SchoolManagementSystem extends Application {
         }
     }
 
-    public static class MarksData {
-        private int serialNo;
-        private String subject;
+    public static class MarksData extends AttendanceData {
         private int midSemesterMarks;
         private int internalMarks;
         private int endSemesterMarks;
 
-        public MarksData(int serialNo, String subject, int midSemesterMarks, int internalMarks, int endSemesterMarks) {
-            this.serialNo = serialNo;
-            this.subject = subject;
+        public MarksData(Integer serialNumber, String subject, int midSemesterMarks, int internalMarks,
+                int endSemesterMarks) {
+            super(serialNumber, subject, 100.0);
             this.midSemesterMarks = Math.min(midSemesterMarks, 30);
             this.internalMarks = Math.min(internalMarks, 20);
             this.endSemesterMarks = Math.min(endSemesterMarks, 50);
-        }
-
-        public int getSerialNo() {
-            return serialNo;
-        }
-
-        public String getSubject() {
-            return subject;
         }
 
         public int getMidSemesterMarks() {
@@ -487,108 +477,3 @@ public class SchoolManagementSystem extends Application {
         }
     }
 }
-
-// class AttendancePage {
-// private Stage primaryStage;
-
-// AttendancePage(Stage primaryStage) {
-// this.primaryStage = primaryStage;
-// }
-
-// void open() {
-// BorderPane layout = new BorderPane();
-// layout.setPadding(new Insets(20));
-
-// Label title = new Label("ATTENDANCE");
-// title.setStyle("-fx-font-size: 20; -fx-text-fill: #333;");
-
-// Button goBackButton = new Button("Go Back");
-// goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white;
-// -fx-font-size: 14;");
-// goBackButton.setOnAction(e -> {
-// Stage stage = (Stage) goBackButton.getScene().getWindow();
-// stage.close();
-// primaryStage.show();
-// });
-
-// layout.setTop(title);
-// layout.setBottom(goBackButton);
-
-// Scene scene = new Scene(layout, 400, 300);
-// scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-
-// Stage stage = new Stage();
-// stage.setScene(scene);
-// stage.show();
-// }
-// }
-
-// class MarksPage {
-// private Stage primaryStage;
-
-// MarksPage(Stage primaryStage) {
-// this.primaryStage = primaryStage;
-// }
-
-// void open() {
-// BorderPane layout = new BorderPane();
-// layout.setPadding(new Insets(20));
-
-// Label title = new Label("MARKS");
-// title.setStyle("-fx-font-size: 20; -fx-text-fill: #333;");
-
-// Button goBackButton = new Button("Go Back");
-// goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white;
-// -fx-font-size: 14;");
-// goBackButton.setOnAction(e -> {
-// Stage stage = (Stage) goBackButton.getScene().getWindow();
-// stage.close();
-// primaryStage.show();
-// });
-
-// layout.setTop(title);
-// layout.setBottom(goBackButton);
-
-// Scene scene = new Scene(layout, 400, 300);
-// scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-
-// Stage stage = new Stage();
-// stage.setScene(scene);
-// stage.show();
-// }
-// }
-
-// class PersonalDetailsPage {
-// private Stage primaryStage;
-
-// PersonalDetailsPage(Stage primaryStage) {
-// this.primaryStage = primaryStage;
-// }
-
-// void open() {
-// BorderPane layout = new BorderPane();
-// layout.setPadding(new Insets(20));
-
-// Label title = new Label("PERSONAL DETAILS");
-// title.setStyle("-fx-font-size: 20; -fx-text-fill: #333;");
-
-// Button goBackButton = new Button("Go Back");
-// goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white;
-// -fx-font-size: 14;");
-// goBackButton.setOnAction(e -> {
-// Stage stage = (Stage) goBackButton.getScene().getWindow();
-// stage.close();
-// primaryStage.show();
-// });
-
-// layout.setTop(title);
-// layout.setBottom(goBackButton);
-
-// Scene scene = new Scene(layout, 400, 300);
-// scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-
-// Stage stage = new Stage();
-// stage.setScene(scene);
-// stage.show();
-// }
-// }
