@@ -1,4 +1,4 @@
 *.class
-# !res/data/AttendanceData.class
-# !res/data/MarksData.class
-# !res/pages/OpenPages.class
+!res/data/AttendanceData.class
+!res/data/MarksData.class
+!res/pages/OpenPages.class
