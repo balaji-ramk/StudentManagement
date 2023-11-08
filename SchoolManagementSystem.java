@@ -144,7 +144,7 @@ public class SchoolManagementSystem extends Application {
         loginButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
 
         loginButton.setOnAction(e -> {
-            regNum = regNumberField.getText(); // Update the class variable here
+            regNum = regNumberField.getText();
             try {
                 if (isValidRegistrationNumber()) {
                     loginStage.close();
@@ -155,18 +155,6 @@ public class SchoolManagementSystem extends Application {
             } catch (InvalidRegNumberException ex) {
                 ex.showDialog();
             }
-            // if (isValidRegistrationNumber()) {
-            // loginStage.close();
-            // openMainMenu(primaryStage);
-            // } else {
-            // Platform.runLater(() -> {
-            // Alert alert = new Alert(Alert.AlertType.ERROR);
-            // alert.setTitle("Invalid Registration Number");
-            // alert.setHeaderText(null);
-            // alert.setContentText("Please enter a valid registration number.");
-            // alert.showAndWait();
-            // });
-            // }
         });
 
         grid.add(regLabel, 0, 0);
@@ -190,7 +178,7 @@ public class SchoolManagementSystem extends Application {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Handle or log the exception
+            e.printStackTrace();
         }
         return isValid;
     }
@@ -225,52 +213,21 @@ public class SchoolManagementSystem extends Application {
                 .setStyle("-fx-background-color: orange; -fx-text-fill: black; -fx-font-size: 18; -fx-padding: 5 10;");
         personalDetailsButton.setOnAction(e -> openPersonalDetailsPage(primaryStage));
 
-        // "Sign Out" button at the bottom-right corner
         Button signOutButton = new Button("Sign Out");
         signOutButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 10;");
         signOutButton.setOnAction(e -> {
             primaryStage.close();
-            start(primaryStage); // Call to open the Login Screen
+            start(primaryStage);
         });
-        BorderPane.setAlignment(signOutButton, Pos.BOTTOM_RIGHT); // Position the button
+        BorderPane.setAlignment(signOutButton, Pos.BOTTOM_RIGHT);
 
         buttonsVBox.getChildren().addAll(attendanceButton, marksButton, personalDetailsButton);
         layout.setTop(helloLabel);
         layout.setCenter(buttonsVBox);
-        layout.setBottom(signOutButton); // Set the "Sign Out" button at the bottom
+        layout.setBottom(signOutButton);
 
         Scene scene = new Scene(layout, 400, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    class LoginThread extends Thread {
-        private Stage primaryStage;
-
-        public LoginThread(Stage primaryStage) {
-            this.primaryStage = primaryStage;
-        }
-
-        @Override
-        public void run() {
-            openLoginScreen(primaryStage);
-        }
-    }
-
-    class RegistrationThread extends Thread {
-        private Stage primaryStage;
-
-        public RegistrationThread(Stage primaryStage) {
-            this.primaryStage = primaryStage;
-        }
-
-        @Override
-        public void run() {
-            openRegistrationPage(primaryStage);
-        }
     }
 }

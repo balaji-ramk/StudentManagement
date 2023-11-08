@@ -176,7 +176,7 @@ public class OpenPages {
                 new AttendanceData(3, "DS", Double.parseDouble(parts[6])),
                 new AttendanceData(4, "DSCO", Double.parseDouble(parts[7])),
                 new AttendanceData(5, "FLAT", Double.parseDouble(parts[8])),
-                new AttendanceData(6, "IDA", Double.parseDouble(parts[6])));
+                new AttendanceData(6, "IDA", Double.parseDouble(parts[9])));
 
         table.setItems(data);
         return table;
