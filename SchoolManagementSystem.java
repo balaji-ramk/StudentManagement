@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import static res.pages.OpenPages.*;
+import res.exceptions.InvalidRegNumberException;
 
 public class SchoolManagementSystem extends Application {
 
@@ -144,18 +145,28 @@ public class SchoolManagementSystem extends Application {
 
         loginButton.setOnAction(e -> {
             regNum = regNumberField.getText(); // Update the class variable here
-            if (isValidRegistrationNumber()) {
-                loginStage.close();
-                openMainMenu(primaryStage);
-            } else {
-                Platform.runLater(() -> {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Invalid Registration Number");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Please enter a valid registration number.");
-                    alert.showAndWait();
-                });
+            try {
+                if (isValidRegistrationNumber()) {
+                    loginStage.close();
+                    openMainMenu(primaryStage);
+                } else {
+                    throw new InvalidRegNumberException();
+                }
+            } catch (InvalidRegNumberException ex) {
+                ex.showDialog();
             }
+            // if (isValidRegistrationNumber()) {
+            // loginStage.close();
+            // openMainMenu(primaryStage);
+            // } else {
+            // Platform.runLater(() -> {
+            // Alert alert = new Alert(Alert.AlertType.ERROR);
+            // alert.setTitle("Invalid Registration Number");
+            // alert.setHeaderText(null);
+            // alert.setContentText("Please enter a valid registration number.");
+            // alert.showAndWait();
+            // });
+            // }
         });
 
         grid.add(regLabel, 0, 0);
