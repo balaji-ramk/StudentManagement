@@ -230,23 +230,41 @@ public class SchoolManagementSystem extends Application {
         Button attendanceButton = new Button("Attendance");
         attendanceButton
                 .setStyle("-fx-background-color: orange; -fx-text-fill: black; -fx-font-size: 18; -fx-padding: 5 10;");
-        attendanceButton.setOnAction(e -> openAttendancePage(primaryStage));
+        attendanceButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                openAttendancePage(primaryStage);
+            }
+        });
 
         Button marksButton = new Button("Marks");
         marksButton
                 .setStyle("-fx-background-color: orange; -fx-text-fill: black; -fx-font-size: 18; -fx-padding: 5 10;");
-        marksButton.setOnAction(e -> openMarksPage(primaryStage));
+        marksButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                openMarksPage(primaryStage);
+            }
+        });
 
         Button personalDetailsButton = new Button("Personal Details");
         personalDetailsButton
                 .setStyle("-fx-background-color: orange; -fx-text-fill: black; -fx-font-size: 18; -fx-padding: 5 10;");
-        personalDetailsButton.setOnAction(e -> openPersonalDetailsPage(primaryStage));
+        personalDetailsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                openPersonalDetailsPage(primaryStage);
+            }
+        });
 
         Button signOutButton = new Button("Sign Out");
         signOutButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 10;");
-        signOutButton.setOnAction(e -> {
-            primaryStage.close();
-            start(primaryStage);
+        signOutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.close();
+                start(primaryStage);
+            }
         });
         BorderPane.setAlignment(signOutButton, Pos.BOTTOM_RIGHT);
 
@@ -259,4 +277,5 @@ public class SchoolManagementSystem extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 }
