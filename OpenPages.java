@@ -45,9 +45,12 @@ public class OpenPages {
 
         Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
-        goBackButton.setOnAction(e -> {
-            marksStage.close();
-            primaryStage.show();
+        goBackButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                marksStage.close();
+                primaryStage.show();
+            }
         });
         TableView<MarksData> table = createMarksTable();
         layout.setTop(title);
@@ -71,9 +74,12 @@ public class OpenPages {
 
         Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
-        goBackButton.setOnAction(e -> {
-            attendanceStage.close();
-            primaryStage.show();
+        goBackButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                attendanceStage.close();
+                primaryStage.show();
+            }
         });
 
         TableView<AttendanceData> table = createAttendanceTable();
@@ -106,9 +112,12 @@ public class OpenPages {
         personalDetailsLayout.setStyle("-fx-text-fill: black; -fx-font-size: 14;-fx-font-weight: bold;");
         Button goBackButton = new Button("Go Back");
         goBackButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
-        goBackButton.setOnAction(e -> {
-            PersonStage.close();
-            primaryStage.show();
+        goBackButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                PersonStage.close();
+                primaryStage.show();
+            }
         });
         personalDetailsLayout.setCenter(personalDetailsVBox);
         personalDetailsLayout.setBottom(goBackButton);

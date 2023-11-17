@@ -14,6 +14,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import static res.pages.OpenPages.*;
 import res.exceptions.InvalidRegNumberException;
 
@@ -38,19 +40,41 @@ public class SchoolManagementSystem extends Application {
         Button loginButton = new Button("Login");
         loginButton.setStyle(
                 "-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 20;");
-        loginButton.setOnAction(e -> {
-            new Thread(() -> {
-                Platform.runLater(() -> openLoginScreen(primaryStage));
-            }).start();
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                openLoginScreen(primaryStage);
+                            }
+                        });
+                    }
+                }).start();
+            }
         });
 
         Button createNewUserButton = new Button("Create New User");
         createNewUserButton.setStyle(
                 "-fx-background-color: #FFA500; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10 10;");
-        createNewUserButton.setOnAction(e -> {
-            new Thread(() -> {
-                Platform.runLater(() -> openRegistrationPage(primaryStage));
-            }).start();
+        createNewUserButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                openRegistrationPage(primaryStage);
+                            }
+                        });
+                    }
+                }).start();
+            }
         });
 
         buttonsVBox.getChildren().addAll(loginButton, createNewUserButton);
