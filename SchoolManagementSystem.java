@@ -6,8 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Modality;
 import java.io.*;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
+
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -112,12 +111,15 @@ public class SchoolManagementSystem extends Application {
         TextField marksField = new TextField();
 
         Button submitButton = new Button("Submit");
-        submitButton.setOnAction(e -> {
-            String regData = String.format("%s,%s,%s,%s,%s", regNumberField.getText(), nameField.getText(),
-                    semesterField.getText(), sectionField.getText(), marksField.getText());
-            appendToCSV(regData);
-            registrationStage.close();
-            start(primaryStage);
+        submitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String regData = String.format("%s,%s,%s,%s,%s", regNumberField.getText(), nameField.getText(),
+                        semesterField.getText(), sectionField.getText(), marksField.getText());
+                appendToCSV(regData);
+                registrationStage.close();
+                start(primaryStage);
+            }
         });
 
         grid.add(nameLabel, 0, 0);
@@ -167,17 +169,20 @@ public class SchoolManagementSystem extends Application {
         Button loginButton = new Button("Login");
         loginButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 14;");
 
-        loginButton.setOnAction(e -> {
-            regNum = regNumberField.getText();
-            try {
-                if (isValidRegistrationNumber()) {
-                    loginStage.close();
-                    openMainMenu(primaryStage);
-                } else {
-                    throw new InvalidRegNumberException();
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                regNum = regNumberField.getText();
+                try {
+                    if (isValidRegistrationNumber()) {
+                        loginStage.close();
+                        openMainMenu(primaryStage);
+                    } else {
+                        throw new InvalidRegNumberException();
+                    }
+                } catch (InvalidRegNumberException ex) {
+                    ex.showDialog();
                 }
-            } catch (InvalidRegNumberException ex) {
-                ex.showDialog();
             }
         });
 
